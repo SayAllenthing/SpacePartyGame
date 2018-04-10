@@ -25,7 +25,7 @@ public class CharacterMotor : MonoBehaviour
         if (dir.magnitude > 1)
             dir.Normalize();
 
-        Controller.Move(dir * MoveSpeed * Time.deltaTime);
+        Controller.Move(((dir * MoveSpeed) + Physics.gravity) * Time.deltaTime);
         transform.LookAt(transform.position + dir);
 
         Anim.SetBool("IsWalking", dir.magnitude > 0.1f);
