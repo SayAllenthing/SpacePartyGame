@@ -49,7 +49,7 @@ public class StationController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             TakeDamage(25);
-        }
+        }        
     }
 
     public void Heal(float damage)

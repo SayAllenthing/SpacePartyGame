@@ -30,4 +30,22 @@ public class CharacterMotor : MonoBehaviour
 
         Anim.SetBool("IsWalking", dir.magnitude > 0.1f);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "FloorCameraTrigger")
+        {
+            // Switch off layer 14, leave others as-is
+            Camera.main.cullingMask = ~(1 << 13);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "FloorCameraTrigger")
+        {
+            // Switch on layer 14, leave others as-is
+            Camera.main.cullingMask |= (1 << 13);
+        }
+    }
 }

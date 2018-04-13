@@ -26,7 +26,6 @@ public class CameraController : MonoBehaviour
 		if(Target == null)
 			return;
 
-		transform.position = Target.position + Offset;
-
+		transform.position = Target.position + Offset;        
     }
 }
