@@ -5077,7 +5077,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-440408
+  m_Name: pb_Mesh5946
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -27773,7 +27773,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh5562
+  m_Name: pb_Mesh5560
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -34096,7 +34096,15 @@ MonoBehaviour:
   m_EnableAllChildCameras: 0
   m_ChildCameras:
   - {fileID: 35372196}
-  m_Instructions: []
+  m_Instructions:
+  - m_FullHash: 81563449
+    m_VirtualCamera: {fileID: 35372196}
+    m_ActivateAfter: 0
+    m_MinDuration: 0
+  - m_FullHash: 1432961145
+    m_VirtualCamera: {fileID: 0}
+    m_ActivateAfter: 4
+    m_MinDuration: 0
   m_DefaultBlend:
     m_Style: 1
     m_Time: 0.5
