@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomManager : MonoBehaviour
 {
     public GameObject WallPrefab;
+    public GameObject FloorPrefab;
 
     public MeshRenderer Floor;
 
@@ -35,5 +36,15 @@ public class RoomManager : MonoBehaviour
 
         wall.GetComponent<WallComponent>().GenerateWall(database, WallObjectType.Curved);
         wall2.GetComponent<WallComponent>().GenerateWall(database, WallObjectType.Curved);
+    }
+
+    public void GenerateFloor()
+    {
+        GameObject floor = Instantiate(FloorPrefab, transform);
+
+        foreach (ModularContact m in floor.GetComponentsInChildren<ModularContact>())
+        {
+            m.Room = this;
+        }
     }
 }

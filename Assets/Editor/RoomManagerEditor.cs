@@ -19,5 +19,10 @@ public class RoomManagerEditor : Editor
 
             component.GenerateWalls(database);
         }
+
+        if(GUILayout.Button("Generate Floor"))
+        {
+            component.GenerateFloor();
+        }
     }
 }
