@@ -36,7 +36,7 @@ public class ModularContact : MonoBehaviour
 
         wall.transform.position = pos;
         wall.transform.rotation = transform.rotation;
-        wall.GetComponent<WallComponent>().GenerateWall(database, WallObjectType.Curved);
+        wall.GetComponent<WallComponent>().GenerateWall(database, WallObjectType.Straight);
     }
 
     public void GenerateFloor()

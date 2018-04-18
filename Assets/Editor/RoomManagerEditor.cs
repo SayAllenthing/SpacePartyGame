@@ -24,5 +24,15 @@ public class RoomManagerEditor : Editor
         {
             component.GenerateFloor();
         }
+
+        if(GUILayout.Button("Toggle Edit Mode"))
+        {
+            ModularContact[] contacts = component.GetComponentsInChildren<ModularContact>(true);
+
+            foreach(ModularContact c in contacts)
+            {
+                c.gameObject.SetActive(!c.gameObject.activeSelf);
+            }
+        }
     }
 }

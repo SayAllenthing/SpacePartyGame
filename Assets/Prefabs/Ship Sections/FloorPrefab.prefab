@@ -210,7 +210,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 831faf8b2d2ef354f92fab0e550e0ed4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -262,6 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Room: {fileID: 0}
   Contact: {fileID: 0}
+  LayerMask: 1048576
 --- !u!114 &114521635380066910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -275,6 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Room: {fileID: 0}
   Contact: {fileID: 0}
+  LayerMask: 1048576
 --- !u!114 &114736205440550608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -288,6 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Room: {fileID: 0}
   Contact: {fileID: 0}
+  LayerMask: 1048576
 --- !u!114 &114934516114227796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Room: {fileID: 0}
   Contact: {fileID: 0}
+  LayerMask: 1048576
 --- !u!135 &135337039429785444
 SphereCollider:
   m_ObjectHideFlags: 1
