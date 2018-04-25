@@ -35,8 +35,7 @@ public class CharacterMotor : MonoBehaviour
     {
         if(other.tag == "FloorCameraTrigger")
         {
-            // Switch off layer 14, leave others as-is
-            Camera.main.cullingMask = ~(1 << 13);
+            Camera.main.cullingMask = ~other.GetComponent<FloorVisibilityComponent>().Layers;
         }
     }
 
@@ -44,8 +43,7 @@ public class CharacterMotor : MonoBehaviour
     {
         if (other.tag == "FloorCameraTrigger")
         {
-            // Switch on layer 14, leave others as-is
-            Camera.main.cullingMask |= (1 << 13);
+            Camera.main.cullingMask |= other.GetComponent<FloorVisibilityComponent>().Layers;
         }
     }
 }
