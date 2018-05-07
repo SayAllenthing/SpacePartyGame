@@ -8,6 +8,9 @@ public class CharacterMotor : MonoBehaviour
     Animator Anim;
     CharacterController Controller;
 
+    bool Typing;
+    GameObject CurrentInteractable;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -17,6 +20,32 @@ public class CharacterMotor : MonoBehaviour
 	
 	// Update is called once per frame
 	void FixedUpdate ()
+    {
+        if(!Typing)
+            HandleMovement();
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if(Typing)
+            {
+                Typing = false;
+                GameObject.Find("LifeSupportPowerPanel").GetComponent<MenuBase>().Toggle();
+            }
+            else
+            {
+                if (CurrentInteractable != null)
+                {
+                    transform.rotation = CurrentInteractable.transform.rotation;
+                    Typing = true;
+                    StartCoroutine(OnShowConsole());
+                }
+            }
+        }
+
+        Anim.SetBool("IsTyping", Typing);
+    }
+
+    void HandleMovement()
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -37,6 +66,11 @@ public class CharacterMotor : MonoBehaviour
         {
             Camera.main.cullingMask = ~other.GetComponent<FloorVisibilityComponent>().Layers;
         }
+
+        if(other.tag == "InteractableObject")
+        {
+            CurrentInteractable = other.gameObject;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -45,5 +79,19 @@ public class CharacterMotor : MonoBehaviour
         {
             Camera.main.cullingMask |= other.GetComponent<FloorVisibilityComponent>().Layers;
         }
+
+        if (other.tag == "InteractableObject")
+        {
+            CurrentInteractable = null;
+        }
+    }
+
+    IEnumerator OnShowConsole()
+    {
+        yield return new WaitForSeconds(0.75f);
+
+        GameObject.Find("LifeSupportPowerPanel").GetComponent<MenuBase>().Toggle();
+
+        yield return null;
     }
 }

@@ -6,7 +6,8 @@ public enum WallObjectType
 {
     None,
     Straight,
-    Curved
+    Curved,
+    Door
 }
 
 public class WallObjectDatabase : ScriptableObject

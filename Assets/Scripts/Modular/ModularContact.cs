@@ -19,7 +19,6 @@ public class ModularContact : MonoBehaviour
             {
                 if(c.gameObject != gameObject)
                 {
-                    Debug.Log(c.name);
                     Contact = c.GetComponent<ModularContact>();
                     Contact.Contact = this;
                 }
@@ -42,14 +41,10 @@ public class ModularContact : MonoBehaviour
     public void GenerateFloor()
     {
         Vector3 pos = transform.parent.position + (-transform.forward * 3);
-        GameObject floor = Instantiate(Room.FloorPrefab, Room.transform);
+        GameObject go = Instantiate(Room.FloorPrefab, Room.transform);
 
-        floor.transform.position = pos;
+        go.transform.position = pos;
 
-        foreach(ModularContact m in floor.GetComponentsInChildren<ModularContact>())
-        {
-            m.Room = Room;
-            m.CheckContact();
-        }
+        go.GetComponent<FloorComponent>().SetRoom(Room);
     }
 }

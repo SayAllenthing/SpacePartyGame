@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - FloorCameraTrigger
+  - InteractableObject
   layers:
   - Default
   - TransparentFX

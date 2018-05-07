@@ -18,7 +18,7 @@ public class AIController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (false)//Input.GetKeyDown(KeyCode.Space))
         {
             Vector3 pos = GameObject.Find("Character").transform.position;
             Agent.SetDestination(pos);

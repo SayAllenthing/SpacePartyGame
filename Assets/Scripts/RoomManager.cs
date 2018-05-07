@@ -4,47 +4,92 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
+    const float TileSize = 3;
+    const float Roomheight = 2;
+
     public GameObject WallPrefab;
     public GameObject FloorPrefab;
 
-    public MeshRenderer Floor;
+    public List<FloorComponent> Floors = new List<FloorComponent>();
 
-    List<GameObject> LeftWalls = new List<GameObject>();
-    List<GameObject> RightWalls = new List<GameObject>();
-    List<GameObject> FrontWalls = new List<GameObject>();
-    List<GameObject> BackWalls = new List<GameObject>();
-
-    int TileSize = 3;
-
-    public void GenerateWalls(WallObjectDatabase database)
-    {
-        
-        float up = Floor.bounds.extents.y;
-
-        //Front
-        float leftPos = Floor.bounds.extents.x;
-        Vector3 pos = new Vector3(0, 0, -leftPos);
-        GameObject wall = Instantiate(WallPrefab, transform);
-        wall.transform.localPosition = pos + Vector3.up * up;
-
-        //Left
-        pos = new Vector3(leftPos, 0, 0);
-        GameObject wall2 = Instantiate(WallPrefab, transform);
-        wall2.transform.localPosition = pos + Vector3.up * up;
-        wall2.transform.LookAt(wall2.transform.position - pos);
-
-
-        wall.GetComponent<WallComponent>().GenerateWall(database, WallObjectType.Curved);
-        wall2.GetComponent<WallComponent>().GenerateWall(database, WallObjectType.Curved);
-    }
+    public RoomInfo Info;
+    public RoomEditorState EditState;
 
     public void GenerateFloor()
     {
-        GameObject floor = Instantiate(FloorPrefab, transform);
+        if (Floors.Count > 0)
+            return;
 
-        foreach (ModularContact m in floor.GetComponentsInChildren<ModularContact>())
-        {
-            m.Room = this;
-        }
+        GameObject go = Instantiate(FloorPrefab, transform);
+        FloorComponent floor = go.GetComponent<FloorComponent>();
+
+        floor.SetRoom(this);
     }
+
+    public void RemoveFloor(FloorComponent floor)
+    {
+        Floors.Remove(floor);
+    }
+
+    public void GenerateCollider()
+    {
+        if (Floors.Count == 0)
+            return;
+
+        BoxCollider col = gameObject.GetComponent<BoxCollider>();
+
+        Rect bounds = new Rect();
+
+        foreach(FloorComponent floor in Floors)
+        {
+            Vector3 pos = floor.transform.localPosition;
+
+            if (pos.x < bounds.xMin)
+                bounds.xMin = pos.x;
+
+            if (pos.x > bounds.xMin)
+                bounds.xMax = pos.x;
+
+            if (pos.z < bounds.yMin)
+                bounds.yMin = pos.z;
+
+            if (pos.z > bounds.yMax)
+                bounds.yMax = pos.z;
+        }
+
+        Vector3 center = new Vector3(bounds.center.x, Roomheight/2, bounds.center.y);
+
+        if(col == null)
+            col = gameObject.AddComponent<BoxCollider>();
+
+        col.center = center;
+        col.size = new Vector3(bounds.size.x + TileSize, Roomheight, bounds.size.y + TileSize);
+
+        col.isTrigger = true;
+
+        Info.Center = center - Vector3.up * Roomheight / 2;
+        Info.RoomWidth = (int)col.size.x;
+        Info.RoomDepth = (int)col.size.z;
+        if (Info.RoomName == string.Empty)
+            Info.RoomName = name;
+    }
+}
+
+[System.Serializable]
+public class RoomInfo
+{
+    public string RoomName = "";
+    public Vector3 Center;
+    public int RoomWidth;
+    public int RoomDepth;
+}
+
+[System.Serializable]
+public class RoomEditorState
+{
+    public bool EditWalls = true;
+    public bool EditFloors = true;
+
+    [HideInInspector]
+    public bool EditMode = true;
 }
