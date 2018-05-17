@@ -25,6 +25,8 @@ public class MenuBase : MonoBehaviour
         Self.interactable = true;
         Self.blocksRaycasts = true;
 
+        OnShow();
+
         IsShowing = true;
     }
     public virtual void Hide()
@@ -34,6 +36,11 @@ public class MenuBase : MonoBehaviour
         Self.interactable = false;
         Self.blocksRaycasts = false;
 
+        OnHide();
+
         IsShowing = false;
     }
+
+    protected virtual void OnShow() { }
+    protected virtual void OnHide() { }
 }
